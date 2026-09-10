@@ -8,6 +8,13 @@ foreach ($categories as $cat) {
     $slug = strtolower(trim(preg_replace('/[^a-z0-9]+/i', '-', $cat['name']), '-'));
     $category_links[] = ['name' => $cat['name'], 'slug' => $slug];
 }
+
+// Current page detection for active menu
+$current_page = basename($_SERVER['PHP_SELF']);
+$current_slug = $_GET['slug'] ?? '';
+
+// Collection tab sirf tab active hoga jab category-detail.php par ho aur slug set ho
+$is_collection_active = ($current_page === 'category-detail.php' && $current_slug !== '');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,6 +63,13 @@ foreach ($categories as $cat) {
 
     <style>
         body { background-color: #FAF6EE; }
+
+        /* Header always solid — transparent never */
+        #headerMain {
+            background-color: #FAF6EE !important;
+            backdrop-filter: none !important;
+        }
+
         .nav-link {
             position: relative;
             color: #241E1B;
@@ -90,13 +104,13 @@ foreach ($categories as $cat) {
             <span class="flex items-center gap-2 font-medium"><i class="fa-solid fa-shirt opacity-90"></i>New Arrivals Every Week</span>
             <span class="flex items-center gap-2 font-medium"><i class="fa-solid fa-scissors opacity-90"></i>Handpicked Fabrics</span>
         </div>
-        <div class="font-medium text-center tracking-wide">Welcome to Your Brand — Explore the Collection</div>
+       
         <div class="hidden lg:flex items-center gap-2 font-medium"><i class="fa-solid fa-book-open opacity-90"></i>Lookbook Inside</div>
     </div>
 </div>
 
 <!-- HEADER -->
-<header id="headerMain" class="sticky top-0 left-0 w-full z-[1001] transition-all duration-300 bg-brand-cream/98 border-b-2 border-brand-sky/40 shadow-[0_2px_16px_rgba(36,30,26,0.05)]">
+<header id="headerMain" class="sticky top-0 left-0 w-full z-[1001] transition-all duration-300 border-b-2 border-brand-sky/40 shadow-[0_2px_16px_rgba(36,30,26,0.05)]" style="background-color:#FAF6EE;">
     <div class="container mx-auto px-4 lg:px-6">
         <div class="flex items-center justify-between h-[76px] lg:h-[84px]">
 
@@ -114,10 +128,10 @@ foreach ($categories as $cat) {
 
             <!-- DESKTOP NAVIGATION (dynamic categories) -->
             <nav class="hidden lg:flex items-center gap-7 xl:gap-9">
-                <a href="<?= BASE_URL ?>" class="nav-link <?= basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : '' ?>">Home</a>
+                <a href="<?= BASE_URL ?>" class="nav-link <?= $current_page == 'index.php' ? 'active' : '' ?>">Home</a>
 
                 <div class="relative group">
-                    <a href="#" class="nav-link flex items-center gap-1 <?= strpos($_SERVER['PHP_SELF'], 'collection') !== false ? 'active' : '' ?>">
+                    <a href="#" class="nav-link flex items-center gap-1 <?= $is_collection_active ? 'active' : '' ?>">
                         Collection <i class="fas fa-chevron-down text-[10px]"></i>
                     </a>
                     <div class="absolute left-0 top-full opacity-0 invisible group-hover:visible group-hover:opacity-100 transition-all duration-300 w-[720px] bg-brand-cream rounded-2xl border border-brand-sky/30 shadow-[0_25px_60px_rgba(36,30,26,0.12)] p-8 mt-5">
@@ -127,7 +141,7 @@ foreach ($categories as $cat) {
                             foreach ($chunks as $chunk) : ?>
                                 <div>
                                     <?php foreach ($chunk as $cat) : ?>
-                                        <a href="<?= BASE_URL ?>category-detail.php?slug=<?= urlencode($cat['slug']) ?>" 
+                                        <a href="<?= BASE_URL ?>category-detail.php?slug=<?= urlencode($cat['slug']) ?>"
                                            class="block text-brand-ink-soft mb-[10px] text-[14px] hover:text-brand-red hover:pl-2 transition-all">
                                             <?= htmlspecialchars($cat['name']) ?>
                                         </a>
@@ -187,9 +201,9 @@ foreach ($categories as $cat) {
 
         <nav class="mt-6 flex flex-col">
             <a href="<?= BASE_URL ?>" class="mobile-link flex items-center justify-between py-[16px] border-b border-brand-sky/20 text-brand-ink font-medium transition-all duration-300 text-[15px] hover:text-brand-red hover:pl-3">Home</a>
-            <a href="#" class="mobile-link flex items-center justify-between py-[16px] border-b border-brand-sky/20 text-brand-ink font-medium transition-all duration-300 text-[15px] hover:text-brand-red hover:pl-3">Collection</a>
+            <a href="<?= BASE_URL ?>collection.php" class="mobile-link flex items-center justify-between py-[16px] border-b border-brand-sky/20 text-brand-ink font-medium transition-all duration-300 text-[15px] hover:text-brand-red hover:pl-3">Collection</a>
             <?php foreach ($category_links as $cat) : ?>
-                <a href="<?= BASE_URL ?>category-detail.php?slug=<?= urlencode($cat['slug']) ?>" 
+                <a href="<?= BASE_URL ?>category-detail.php?slug=<?= urlencode($cat['slug']) ?>"
                    class="mobile-link flex items-center justify-between py-[14px] border-b border-brand-sky/20 text-brand-ink/80 text-[14px] transition-all duration-300 hover:text-brand-red hover:pl-3 pl-4">
                     <?= htmlspecialchars($cat['name']) ?>
                 </a>
@@ -224,6 +238,8 @@ foreach ($categories as $cat) {
 
     const header = document.getElementById("headerMain");
     window.addEventListener("scroll", function() {
+        // Header stays solid — only shadow changes
+        header.style.backgroundColor = '#FAF6EE';
         if (window.scrollY > 80) {
             header.style.boxShadow = '0 10px 30px rgba(36,30,26,0.08)';
         } else {
@@ -288,3 +304,5 @@ foreach ($categories as $cat) {
         link.addEventListener('click', closeSidebar);
     });
 </script>
+</body>
+</html>

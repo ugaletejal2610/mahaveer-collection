@@ -1,6 +1,5 @@
-<footer class="bg-brand-ink text-brand-cream mt-20">
+<footer class="bg-brand-ink text-brand-cream">
 
-    <!-- TOP: BRAND / LINKS / CONTACT -->
     <div class="max-w-[1280px] mx-auto px-6 lg:px-10 py-16 grid grid-cols-1 md:grid-cols-3 gap-12">
 
         <!-- BRAND -->
@@ -39,15 +38,15 @@
             <ul class="space-y-4 text-[14px] text-brand-cream/70">
                 <li class="flex items-start gap-3">
                     <i class="fa-solid fa-location-dot mt-[3px] text-brand-red"></i>
-                    <span>123 Fashion Street, Bandra West, Mumbai, MH 400050</span>
+                    <span>Shop No. 7, BK No. 462, Manas Complex, Near Navjeevan Bank Siru Chowk Branch, Ulhasnagar, Thane-421002, Maharashtra, India </span>
                 </li>
                 <li class="flex items-center gap-3">
                     <i class="fa-solid fa-phone text-brand-sky"></i>
-                    <a href="tel:+919999999999" class="hover:text-brand-sky transition-colors duration-300">+91 99999 99999</a>
+                    <a href="tel:+91 98220 66508" class="hover:text-brand-sky transition-colors duration-300">+91 98220 66508</a>
                 </li>
                 <li class="flex items-center gap-3">
                     <i class="fa-solid fa-envelope text-brand-red"></i>
-                    <a href="mailto:hello@yourbrand.com" class="hover:text-brand-sky transition-colors duration-300">hello@yourbrand.com</a>
+                    <a href="mailto:Hareshbk70@gmail.com" class="hover:text-brand-sky transition-colors duration-300">Hareshbk70@gmail.com</a>
                 </li>
             </ul>
         </div>
@@ -59,18 +58,15 @@
 
     <!-- BOTTOM BAR -->
     <div class="max-w-[1280px] mx-auto px-6 lg:px-10 py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-[13px] text-brand-cream/60">
-        <p>&copy; <?= date('Y') ?> Your Brand. All rights reserved.</p>
-        <p class="text-center">Made for browsing, not buying — every piece here is here to be seen.</p>
+        <p>&copy; <?= date('Y') ?> Mahavir-Enterprise. All rights reserved.</p>
+        <p class="text-center">Desigend & Developed By <a href="https://www.kumarinfotech.com/">Kumarinfotech</a></p>
     </div>
 
 </footer>
 
-<!-- Include the enquiry modal (so it's available globally) -->
 <?php include 'includes/enquiry-modal.php'; ?>
 
-<!-- All JavaScript (AOS fix + modal control + AJAX) -->
 <script>
-    // AOS fix for browser back/forward cache
     document.addEventListener('DOMContentLoaded', function() {
         if (typeof AOS !== 'undefined') {
             AOS.init();

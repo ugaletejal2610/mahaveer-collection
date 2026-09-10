@@ -1,12 +1,12 @@
 <?php
 // ============================================
-// ABOUT PAGE - Redesigned with new Why Choose Us points & icon fixes
+// ABOUT PAGE – Pure Tailwind
 // ============================================
 $page_title = "About Us";
 include 'includes/header.php';
 
 // ------------------------------------------------------------------
-// Core values (kept from original)
+// Core Values
 // ------------------------------------------------------------------
 $values = [
     ['icon' => 'fa-swatchbook', 'title' => 'Range', 'desc' => '19 fabric categories, from everyday shirting to specialised hospital and Schiffli fabrics.', 'tint' => 'r'],
@@ -16,7 +16,7 @@ $values = [
 ];
 
 // ------------------------------------------------------------------
-// WHY CHOOSE US – UPDATED with your 5 specific points
+// Why Choose Us – 5 Points
 // ------------------------------------------------------------------
 $whyUs = [
     ['icon' => 'fa-user-tie', 'title' => 'Experienced Professionals', 'desc' => 'Our team brings deep industry knowledge to source and check every fabric.', 'tint' => 'r'],
@@ -27,7 +27,7 @@ $whyUs = [
 ];
 
 // ------------------------------------------------------------------
-// Milestones (company history)
+// Milestones
 // ------------------------------------------------------------------
 $milestones = [
     ['year' => '1998', 'text' => 'Founded in Ulhasnagar, Maharashtra, as a small trading counter for shirting fabrics.'],
@@ -38,192 +38,140 @@ $milestones = [
 ];
 
 // ------------------------------------------------------------------
-// Team (kept as is)
+// Profile Info
 // ------------------------------------------------------------------
-$team = [
-    ['name' => 'Suresh Patel', 'role' => 'Founder & Sourcing Head'],
-    ['name' => 'Meera Nair', 'role' => 'Quality & Inspection Lead'],
-    ['name' => 'Farhan Ali', 'role' => 'Trade Relations'],
+$profileInfo = [
+    ['icon' => 'fa-building', 'label' => 'Nature of Business', 'value' => 'Trader – Wholesaler/Distributor'],
+    ['icon' => 'fa-scale-balanced', 'label' => 'Legal Status', 'value' => 'Proprietorship'],
+    ['icon' => 'fa-indian-rupee-sign', 'label' => 'Annual Turnover', 'value' => '₹1.5 – 5 Cr'],
+    ['icon' => 'fa-id-card', 'label' => 'GST No.', 'value' => '27ABIPK4734A1ZY'],
+    ['icon' => 'fa-passport', 'label' => 'IEC', 'value' => '0305043269'],
+    ['icon' => 'fa-users', 'label' => 'Employees', 'value' => 'Upto 10 People'],
 ];
 ?>
 
-<style>
-    /* --- Styles for cards and layout --- */
-    .val-card {
-        border-radius: 22px;
-        background: #FFFFFF;
-        box-shadow: 0 1px 2px rgba(36,30,26,0.04), 0 10px 24px rgba(36,30,26,0.05);
-        transition: transform .35s ease, box-shadow .35s ease;
-    }
-    .val-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(36,30,26,0.12); }
-    .val-icon-r { background: linear-gradient(135deg, #C1272D, #8F1D22); }
-    .val-icon-s { background: linear-gradient(135deg, #4FB6DE, #2E93BD); }
-
-    .timeline-line { background: linear-gradient(180deg, #C1272D, #4FB6DE); }
-
-    /* Company profile card */
-    .profile-card {
-        background: #fff;
-        border-radius: 28px;
-        box-shadow: 0 20px 50px rgba(36,30,26,0.08);
-        padding: 2rem 2.5rem;
-        border: 1px solid rgba(79, 182, 222, 0.2);
-    }
-    .profile-card .info-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem 2rem;
-    }
-    .profile-card .info-item {
-        display: flex;
-        align-items: baseline;
-        gap: 0.5rem;
-        font-size: 0.95rem;
-        color: #3D3A36;
-        border-bottom: 1px dashed #E8E4DF;
-        padding-bottom: 0.5rem;
-    }
-    .profile-card .info-item .label {
-        font-weight: 500;
-        color: #1A1714;
-        min-width: 120px;
-    }
-    .profile-card .info-item .value {
-        color: #4A4642;
-    }
-    .profile-card .info-item i {
-        color: #C1272D;
-        width: 20px;
-        font-size: 0.9rem;
-    }
-    @media (max-width: 640px) {
-        .profile-card .info-grid { grid-template-columns: 1fr; }
-        .profile-card .info-item { flex-wrap: wrap; }
-    }
-
-    /* Why Choose Us cards */
-    .why-card {
-        border-radius: 22px;
-        background: #FFFFFF;
-        box-shadow: 0 1px 2px rgba(36,30,26,0.04), 0 10px 24px rgba(36,30,26,0.05);
-        transition: transform .35s ease, box-shadow .35s ease;
-        padding: 1.8rem 1.5rem;
-        text-align: center;
-        border: 1px solid transparent;
-    }
-    .why-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 25px 50px rgba(36,30,26,0.12);
-        border-color: rgba(193, 39, 45, 0.2);
-    }
-    .why-card .why-icon {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 1.2rem;
-        font-size: 1.6rem;
-        color: #fff;
-    }
-    .why-card .why-icon.r { background: linear-gradient(135deg, #C1272D, #8F1D22); }
-    .why-card .why-icon.s { background: linear-gradient(135deg, #4FB6DE, #2E93BD); }
-    .why-card h3 {
-        font-family: 'Georgia', serif;
-        font-size: 1.1rem;
-        font-weight: 600;
-        color: #1A1714;
-        margin-bottom: 0.6rem;
-    }
-    .why-card p {
-        font-size: 0.9rem;
-        color: #5A5652;
-        line-height: 1.6;
-        margin: 0;
-    }
-
-    .section-pad { padding: 4rem 0; }
-    @media (min-width: 1024px) { .section-pad { padding: 5rem 0; } }
-</style>
-
 <!-- ============================================================ -->
-<!-- PAGE INTRO -->
+<!-- HERO – Full Image Only -->
 <!-- ============================================================ -->
-<section class="bg-brand-cream border-b border-brand-sky/20 section-pad">
-    <div class="max-w-[1280px] mx-auto px-6 lg:px-10 text-center" data-aos="fade-up">
-        <p class="text-brand-red font-medium text-[14px] mb-4">About Us</p>
-        <h1 class="font-serif text-[36px] sm:text-[46px] leading-[1.15] text-brand-ink font-medium max-w-[720px] mx-auto mb-5">
-            Mahavir Enterprises – Your Trusted Fabric Partner Since 1998
-        </h1>
-        <p class="text-brand-ink-soft text-[16px] leading-[1.7] max-w-[600px] mx-auto">
-            From a single shirting counter to a global exporter – we bring you premium fabrics with a personal touch.
-        </p>
-    </div>
+<section class="w-full overflow-hidden">
+    <img src="<?= BASE_URL ?>assets/images/about/about-hero.png"
+         alt="Mahavir Enterprises"
+         class="w-full h-auto block">
 </section>
 
 <!-- ============================================================ -->
-<!-- COMPANY PROFILE (exact details from screenshot) - ICONS FIXED to fa-solid -->
+<!-- COMPANY PROFILE -->
 <!-- ============================================================ -->
-<section class="max-w-[1280px] mx-auto px-6 lg:px-10 section-pad">
+<section id="profile" class="max-w-[1280px] mx-auto px-6 lg:px-10 py-16 lg:py-20">
     <div class="grid grid-cols-1 lg:grid-cols-5 gap-10 items-center">
-        <div class="lg:col-span-3" data-aos="fade-right">
-            <h2 class="font-serif text-[28px] sm:text-[32px] text-brand-ink font-medium mb-4">
-                Who We Are
-            </h2>
-            <p class="text-brand-ink-soft text-[15px] leading-[1.8] mb-6">
-                <strong>Mahavir Enterprises</strong>, established in <strong>1998 at Ulhasnagar, Maharashtra</strong>, is a reputed 
-                <strong>manufacturer, wholesaler, and exporter</strong> of premium quality 
-                <strong>Fancy Fabrics, Printed Fabrics, Garment Fabrics, Fabric Flags, Jaipuri Fabrics, and Embroidery Fabrics</strong>.
-            </p>
-            <p class="text-brand-ink-soft text-[15px] leading-[1.8] mb-6">
-                Guided by our mentor <strong>Mr. Haresh B. Keswani (Proprietor)</strong>, we have grown consistently with a strong presence 
-                in India and overseas markets including <strong>Malaysia, Indonesia, Singapore, and African countries</strong>.
-            </p>
-            <div class="profile-card">
-                <div class="info-grid">
 
-                    <div class="info-item"><i class="fa-solid fa-building"></i><span class="label">Nature of Business</span><span class="value">Trader – Wholesaler/Distributor</span></div>
-                    <div class="info-item"><i class="fa-solid fa-scale-balanced"></i><span class="label">Legal Status</span><span class="value">Proprietorship</span></div>
-                    <div class="info-item"><i class="fa-solid fa-indian-rupee-sign"></i><span class="label">Annual Turnover</span><span class="value">₹1.5 – 5 Cr</span></div>
-                    <div class="info-item"><i class="fa-solid fa-id-card"></i><span class="label">GST No.</span><span class="value">27ABIPK4734A1ZY</span></div>
-                    <div class="info-item"><i class="fa-solid fa-passport"></i><span class="label">IEC</span><span class="value">0305043269</span></div>
-                    <div class="info-item"><i class="fa-solid fa-users"></i><span class="label">Employees</span><span class="value">Upto 10 People</span></div>
+        <!-- Left -->
+        <div class="lg:col-span-3" data-aos="fade-right">
+            <p class="text-[#C1272D] font-medium text-[13px] mb-2">Who We Are</p>
+            <h2 class="font-serif text-[28px] sm:text-[34px] text-[#1A1714] font-medium mb-4">
+                Built on Quality, Driven by Trust
+            </h2>
+            <p class="text-[#5A5652] text-[15px] leading-[1.8] mb-4">
+                <strong>Mahavir Enterprises</strong>, established in <strong>1998 at Ulhasnagar, Maharashtra</strong>,
+                is a reputed <strong>manufacturer, wholesaler, and exporter</strong> of premium quality
+                <strong>Fancy Fabrics, Printed Fabrics, Garment Fabrics, Fabric Flags, Jaipuri Fabrics, and
+                Embroidery Fabrics</strong>.
+            </p>
+            <p class="text-[#5A5652] text-[15px] leading-[1.8] mb-6">
+                Guided by our mentor <strong>Mr. Haresh B. Keswani (Proprietor)</strong>, we have grown consistently
+                with a strong presence in India and overseas markets including
+                <strong>Malaysia, Indonesia, Singapore, and African countries</strong>.
+            </p>
+
+            <!-- Profile Card -->
+            <div class="bg-white rounded-[28px] shadow-[0_20px_50px_rgba(36,30,26,0.08)] p-6 sm:p-8 border border-[#4FB6DE]/20">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-x-8">
+                    <?php foreach ($profileInfo as $info): ?>
+                        <div class="flex items-baseline gap-2 text-[14px] sm:text-[15px] text-[#3D3A36] border-b border-dashed border-[#E8E4DF] pb-2 flex-wrap">
+                            <i class="fa-solid <?= $info['icon'] ?> text-[#C1272D] w-5 text-[13px]"></i>
+                            <span class="font-medium text-[#1A1714] min-w-[110px]"><?= $info['label'] ?></span>
+                            <span class="text-[#4A4642]"><?= $info['value'] ?></span>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
+
+        <!-- Right Images -->
         <div class="lg:col-span-2 relative h-[300px] lg:h-[420px]" data-aos="fade-left">
             <div class="absolute top-0 left-0 w-[85%] h-[85%] rounded-[26px] overflow-hidden shadow-[0_25px_60px_rgba(36,30,26,0.16)] border-4 border-white">
-                <img src="https://picsum.photos/seed/mahavir/800/700" alt="Mahavir Enterprises" class="w-full h-full object-cover">
+                <img src="<?= BASE_URL ?>assets/images/about/aboutus1.png"
+                     alt="Mahavir Enterprises"
+                     class="w-full h-full object-fit">
             </div>
-            <div class="absolute bottom-0 right-0 w-[55%] h-[45%] rounded-[20px] overflow-hidden shadow-[0_18px_44px_rgba(36,30,26,0.16)] border-4 border-brand-cream">
-                <img src="https://picsum.photos/seed/fabricrolls/500/420" alt="Fabric rolls" class="w-full h-full object-cover">
+            <div class="absolute bottom-0 right-0 w-[55%] h-[45%] rounded-[20px] overflow-hidden shadow-[0_18px_44px_rgba(36,30,26,0.16)] border-4 border-[#f5f0eb]">
+                <img src="<?= BASE_URL ?>assets/images/about/aboutus2.png"
+                     alt="Fabric rolls"
+                     class="w-full h-full object-fit">
             </div>
         </div>
     </div>
 </section>
 
 <!-- ============================================================ -->
-<!-- WHY CHOOSE US – UPDATED WITH YOUR 5 POINTS -->
+<!-- MISSION & VISION -->
 <!-- ============================================================ -->
-<section class="bg-brand-cream-deep border-y border-brand-sky/20 section-pad">
+<section class="bg-[#f5f0eb] border-y border-[#4FB6DE]/20 py-16 lg:py-20">
+    <div class="max-w-[1280px] mx-auto px-6 lg:px-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+
+            <div class="bg-white rounded-2xl p-8 shadow-[0_1px_2px_rgba(36,30,26,0.04),0_10px_24px_rgba(36,30,26,0.05)] text-center"
+                 data-aos="fade-up">
+                <div class="w-14 h-14 mx-auto rounded-full bg-[#C1272D]/10 flex items-center justify-center mb-4">
+                    <i class="fa-solid fa-bullseye text-[#C1272D] text-[24px]"></i>
+                </div>
+                <h3 class="font-serif text-[22px] text-[#1A1714] mb-3">Our Mission</h3>
+                <p class="text-[#5A5652] text-[15px] leading-[1.7]">
+                    To provide <strong>high-quality, diverse fabrics</strong> to businesses worldwide,
+                    ensuring <strong>timely delivery, transparent pricing, and unwavering reliability</strong>
+                    in every yard we supply.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-[0_1px_2px_rgba(36,30,26,0.04),0_10px_24px_rgba(36,30,26,0.05)] text-center"
+                 data-aos="fade-up" data-aos-delay="100">
+                <div class="w-14 h-14 mx-auto rounded-full bg-[#4FB6DE]/15 flex items-center justify-center mb-4">
+                    <i class="fa-solid fa-eye text-[#2E93BD] text-[24px]"></i>
+                </div>
+                <h3 class="font-serif text-[22px] text-[#1A1714] mb-3">Our Vision</h3>
+                <p class="text-[#5A5652] text-[15px] leading-[1.7]">
+                    To become the <strong>most trusted fabric sourcing partner</strong> for trade customers
+                    across India and emerging markets — by constantly expanding our catalogue
+                    and deepening our quality checks.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- WHY CHOOSE US -->
+<!-- ============================================================ -->
+<section class="bg-[#f5f0eb] border-y border-[#4FB6DE]/20 py-16 lg:py-20">
     <div class="max-w-[1280px] mx-auto px-6 lg:px-10">
         <div class="text-center mb-12" data-aos="fade-up">
-            <p class="text-brand-red font-medium text-[13px] mb-2">Why Choose Us</p>
-            <h2 class="font-serif text-[26px] sm:text-[34px] text-brand-ink font-medium">The Mahavir Advantage</h2>
-            <p class="text-brand-ink-soft text-[15px] max-w-[560px] mx-auto mt-3">
+            <p class="text-[#C1272D] font-medium text-[13px] mb-2">Why Choose Us</p>
+            <h2 class="font-serif text-[26px] sm:text-[34px] text-[#1A1714] font-medium">The Mahavir Advantage</h2>
+            <p class="text-[#5A5652] text-[15px] max-w-[560px] mx-auto mt-3">
                 Decades of trust, a global footprint, and an unwavering commitment to quality – that's what sets us apart.
             </p>
         </div>
-        <!-- Grid: 5 items ke liye 3 columns (2 rows me adjust ho jayega) -->
+
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <?php foreach ($whyUs as $i => $item): ?>
-                <div class="why-card" data-aos="fade-up" data-aos-delay="<?= $i * 80 ?>">
-                    <div class="why-icon <?= $item['tint'] ?>">
+                <div class="group bg-white rounded-[22px] shadow-[0_1px_2px_rgba(36,30,26,0.04),0_10px_24px_rgba(36,30,26,0.05)] p-7 text-center border border-transparent transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_25px_50px_rgba(36,30,26,0.12)] hover:border-[#C1272D]/20"
+                     data-aos="fade-up" data-aos-delay="<?= $i * 80 ?>">
+                    <div class="w-[60px] h-[60px] rounded-full flex items-center justify-center mx-auto mb-5 text-[26px] text-white transition-transform duration-300 group-hover:scale-110 <?= $item['tint'] === 'r' ? 'bg-gradient-to-br from-[#C1272D] to-[#8F1D22]' : 'bg-gradient-to-br from-[#4FB6DE] to-[#2E93BD]' ?>">
                         <i class="fa-solid <?= $item['icon'] ?>"></i>
                     </div>
-                    <h3><?= $item['title'] ?></h3>
-                    <p><?= $item['desc'] ?></p>
+                    <h3 class="font-serif text-[17px] font-semibold text-[#1A1714] mb-2"><?= $item['title'] ?></h3>
+                    <p class="text-[14px] text-[#5A5652] leading-[1.6]"><?= $item['desc'] ?></p>
                 </div>
             <?php endforeach; ?>
         </div>
@@ -231,22 +179,24 @@ $team = [
 </section>
 
 <!-- ============================================================ -->
-<!-- OUR VALUES (kept from original) -->
+<!-- OUR VALUES -->
 <!-- ============================================================ -->
-<section class="max-w-[1280px] mx-auto px-6 lg:px-10 section-pad">
+<section class="max-w-[1280px] mx-auto px-6 lg:px-10 py-16 lg:py-20">
     <div class="text-center mb-12" data-aos="fade-up">
-        <p class="text-brand-sky-dark font-medium text-[13px] mb-2">What we stand for</p>
-        <h2 class="font-serif text-[26px] sm:text-[30px] text-brand-ink font-medium">The Way We Work</h2>
-        <p class="text-brand-ink-soft text-[15px] max-w-[500px] mx-auto mt-2">Our daily practices that build lasting trust</p>
+        <p class="text-[#2E93BD] font-medium text-[13px] mb-2">What we stand for</p>
+        <h2 class="font-serif text-[26px] sm:text-[30px] text-[#1A1714] font-medium">The Way We Work</h2>
+        <p class="text-[#5A5652] text-[15px] max-w-[500px] mx-auto mt-2">Our daily practices that build lasting trust</p>
     </div>
+
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <?php foreach ($values as $i => $v): ?>
-            <div class="val-card p-6" data-aos="fade-up" data-aos-delay="<?= $i * 80 ?>">
-                <div class="w-12 h-12 rounded-xl val-icon-<?= $v['tint'] ?> flex items-center justify-center mb-5 shadow-[0_8px_16px_rgba(36,30,26,0.15)]">
+            <div class="bg-white rounded-[22px] shadow-[0_1px_2px_rgba(36,30,26,0.04),0_10px_24px_rgba(36,30,26,0.05)] p-7 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(36,30,26,0.12)]"
+                 data-aos="fade-up" data-aos-delay="<?= $i * 80 ?>">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5 shadow-[0_8px_16px_rgba(36,30,26,0.15)] <?= $v['tint'] === 'r' ? 'bg-gradient-to-br from-[#C1272D] to-[#8F1D22]' : 'bg-gradient-to-br from-[#4FB6DE] to-[#2E93BD]' ?>">
                     <i class="fa-solid <?= $v['icon'] ?> text-white text-[17px]"></i>
                 </div>
-                <h3 class="font-serif text-[16px] text-brand-ink mb-2"><?= $v['title'] ?></h3>
-                <p class="text-brand-ink-soft text-[13.5px] leading-[1.7]"><?= $v['desc'] ?></p>
+                <h3 class="font-serif text-[16px] text-[#1A1714] mb-2"><?= $v['title'] ?></h3>
+                <p class="text-[13.5px] text-[#5A5652] leading-[1.7]"><?= $v['desc'] ?></p>
             </div>
         <?php endforeach; ?>
     </div>
@@ -255,30 +205,35 @@ $team = [
 <!-- ============================================================ -->
 <!-- TIMELINE -->
 <!-- ============================================================ -->
-<section class="bg-brand-cream-deep border-y border-brand-sky/20 section-pad">
+<section class="bg-[#f5f0eb] border-y border-[#4FB6DE]/20 py-16 lg:py-20">
     <div class="max-w-[1280px] mx-auto px-6 lg:px-10">
         <div class="text-center mb-14" data-aos="fade-up">
-            <p class="text-brand-sky-dark font-medium text-[13px] mb-2">How we got here</p>
-            <h2 class="font-serif text-[26px] sm:text-[30px] text-brand-ink font-medium">Our Journey</h2>
+            <p class="text-[#2E93BD] font-medium text-[13px] mb-2">How we got here</p>
+            <h2 class="font-serif text-[26px] sm:text-[30px] text-[#1A1714] font-medium">Our Journey</h2>
         </div>
 
         <div class="relative max-w-[680px] mx-auto">
-            <div class="timeline-line absolute left-[7px] sm:left-1/2 top-0 bottom-0 w-[2px] sm:-translate-x-1/2 rounded-full opacity-70"></div>
+            <!-- Vertical line -->
+            <div class="absolute left-[7px] sm:left-1/2 top-0 bottom-0 w-[2px] sm:-translate-x-1/2 rounded-full opacity-70 bg-gradient-to-b from-[#C1272D] to-[#4FB6DE]"></div>
+
             <div class="space-y-10">
                 <?php foreach ($milestones as $i => $m): ?>
-                    <div class="relative pl-8 sm:pl-0 sm:grid sm:grid-cols-2 sm:gap-10" data-aos="fade-up" data-aos-delay="<?= $i * 80 ?>">
-                        <span class="absolute left-0 sm:left-1/2 top-1 w-4 h-4 rounded-full <?= $i % 2 === 0 ? 'bg-brand-red' : 'bg-brand-sky' ?> sm:-translate-x-1/2 border-4 border-brand-cream"></span>
+                    <div class="relative pl-8 sm:pl-0 sm:grid sm:grid-cols-2 sm:gap-10"
+                         data-aos="fade-up" data-aos-delay="<?= $i * 80 ?>">
+                        <!-- Dot -->
+                        <span class="absolute left-0 sm:left-1/2 top-1 w-4 h-4 rounded-full <?= $i % 2 === 0 ? 'bg-[#C1272D]' : 'bg-[#4FB6DE]' ?> sm:-translate-x-1/2 border-4 border-[#f5f0eb]"></span>
+
                         <?php if ($i % 2 === 0): ?>
                             <div class="sm:text-right sm:pr-4">
-                                <p class="font-serif text-[20px] <?= $i % 2 === 0 ? 'text-brand-red' : 'text-brand-sky-dark' ?> mb-1"><?= $m['year'] ?></p>
-                                <p class="text-brand-ink-soft text-[14px] leading-[1.7]"><?= $m['text'] ?></p>
+                                <p class="font-serif text-[20px] text-[#C1272D] mb-1"><?= $m['year'] ?></p>
+                                <p class="text-[#5A5652] text-[14px] leading-[1.7]"><?= $m['text'] ?></p>
                             </div>
                             <div></div>
                         <?php else: ?>
                             <div class="hidden sm:block"></div>
                             <div class="sm:pl-4">
-                                <p class="font-serif text-[20px] text-brand-sky-dark mb-1"><?= $m['year'] ?></p>
-                                <p class="text-brand-ink-soft text-[14px] leading-[1.7]"><?= $m['text'] ?></p>
+                                <p class="font-serif text-[20px] text-[#2E93BD] mb-1"><?= $m['year'] ?></p>
+                                <p class="text-[#5A5652] text-[14px] leading-[1.7]"><?= $m['text'] ?></p>
                             </div>
                         <?php endif; ?>
                     </div>
@@ -289,36 +244,22 @@ $team = [
 </section>
 
 <!-- ============================================================ -->
-<!-- TEAM (unchanged) -->
-<!-- ============================================================ -->
-<section class="bg-brand-ink section-pad">
-    <div class="max-w-[1280px] mx-auto px-6 lg:px-10">
-        <div class="text-center mb-12" data-aos="fade-up">
-            <p class="text-brand-sky font-medium text-[13px] mb-2">Behind the catalogue</p>
-            <h2 class="font-serif text-[26px] sm:text-[30px] text-brand-cream font-medium">The People Who Check Every Fabric</h2>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-[820px] mx-auto">
-            <?php foreach ($team as $i => $p): ?>
-                <div class="text-center" data-aos="fade-up" data-aos-delay="<?= $i * 100 ?>">
-                    <img src="https://picsum.photos/seed/<?= urlencode($p['name']) ?>/200/200" class="w-24 h-24 rounded-full object-cover mx-auto border-4 border-white/10" alt="<?= htmlspecialchars($p['name']) ?>">
-                    <p class="text-brand-cream font-serif text-[16px] mt-4"><?= $p['name'] ?></p>
-                    <p class="text-brand-cream/55 text-[13px] mt-1"><?= $p['role'] ?></p>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    </div>
-</section>
-
-<!-- ============================================================ -->
 <!-- CONTACT CTA -->
 <!-- ============================================================ -->
-<section class="max-w-[1280px] mx-auto px-6 lg:px-10 section-pad text-center" data-aos="fade-up">
-    <h2 class="font-serif text-[26px] sm:text-[30px] text-brand-ink font-medium mb-4">Want to know more about our fabrics?</h2>
-    <p class="text-brand-ink-soft text-[15px] max-w-[440px] mx-auto mb-8">Reach out and we'll walk you through anything in the catalogue.</p>
-    <a href="<?= BASE_URL ?>contact.php" class="inline-flex items-center gap-2 bg-brand-red text-white px-8 py-3.5 rounded-full font-medium text-[14px] transition-all duration-300 hover:bg-brand-red-dark hover:-translate-y-0.5">
-        Contact Us
-        <i class="fa-solid fa-arrow-right text-[12px]"></i>
-    </a>
+<section class="bg-[#f5f0eb] border-y border-[#4FB6DE]/20 py-16 lg:py-20">
+    <div class="max-w-[1280px] mx-auto px-6 lg:px-10 text-center" data-aos="fade-up">
+        <h2 class="font-serif text-[26px] sm:text-[30px] text-[#1A1714] font-medium mb-4">
+            Want to know more about our fabrics?
+        </h2>
+        <p class="text-[#5A5652] text-[15px] max-w-[440px] mx-auto mb-8">
+            Reach out and we'll walk you through anything in the catalogue.
+        </p>
+        <a href="<?= BASE_URL ?>contact.php"
+           class="inline-flex items-center gap-2 bg-[#C1272D] text-white px-8 py-3.5 rounded-full font-medium text-[14px] transition-all duration-300 hover:bg-[#a62a2f] hover:-translate-y-0.5">
+            Contact Us
+            <i class="fa-solid fa-arrow-right text-[12px]"></i>
+        </a>
+    </div>
 </section>
 
 <?php include 'includes/footer.php'; ?>

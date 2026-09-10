@@ -3,8 +3,6 @@
 // CATEGORY DETAIL – shows products for a specific category
 // ============================================
 
-
-
 // Get the slug from URL
 $slug = isset($_GET['slug']) ? trim(urldecode($_GET['slug'])) : '';
 
@@ -53,28 +51,34 @@ $product_count = count($products);
 
 // Category styling (based on tint)
 $tint = $category['tint'];
-$iconBg = $tint === 'r' ? 'bg-gradient-to-br from-[#C1272D] to-[#8F1D22]' : 'bg-gradient-to-br from-[#4FB6DE] to-[#2E93BD]';
 $textColor = $tint === 'r' ? 'text-[#8F1D22]' : 'text-[#2E93BD]';
 ?>
 
-<!-- Category Header -->
-<section class="bg-[#f5f0eb] py-12 border-b border-[#4FB6DE]/20">
-    <div class="max-w-[1280px] mx-auto px-6 lg:px-10">
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div>
-                <a href="<?= BASE_URL ?>categories.php" class="text-[#2E93BD] text-sm font-medium hover:underline inline-flex items-center gap-1">
+<!-- Category Header with Big Image -->
+<section class="relative overflow-hidden bg-[#f5f0eb]">
+    <!-- ✅ Category Banner Image - Bada size -->
+    <div class="relative h-[300px] md:h-[400px] lg:h-[500px] w-full overflow-hidden">
+        <img src="<?= BASE_URL . $category['image'] ?>" 
+             alt="<?= htmlspecialchars($category['name']) ?>" 
+             class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#241e1a]/80 via-[#241e1a]/40 to-transparent"></div>
+        
+        <!-- Category Info Overlay -->
+        <div class="absolute bottom-0 left-0 right-0 p-8 md:p-12 z-10">
+            <div class="max-w-[1280px] mx-auto">
+                <a href="<?= BASE_URL ?>categories.php" class="text-white/80 text-sm font-medium hover:text-white inline-flex items-center gap-1 mb-4">
                     <i class="fa-solid fa-arrow-left"></i> All Categories
                 </a>
-                <h1 class="font-serif text-[32px] sm:text-[40px] text-[#241e1a] font-medium mt-2 flex items-center gap-3">
-                    <span class="inline-block w-10 h-10 rounded-2xl <?= $iconBg ?> flex items-center justify-center text-white text-lg shadow-md">
-                        <i class="fa-solid <?= $category['icon'] ?>"></i>
+                <h1 class="font-serif text-[32px] sm:text-[48px] lg:text-[56px] text-white font-medium flex items-center gap-4">
+                    <!-- ✅ Category Image instead of icon -->
+                    <span class="inline-block w-14 h-14 rounded-2xl overflow-hidden shadow-lg border-2 border-white/30">
+                        <img src="<?= BASE_URL . $category['image'] ?>" 
+                             alt="<?= htmlspecialchars($category['name']) ?>" 
+                             class="w-full h-full object-cover">
                     </span>
                     <?= htmlspecialchars($category['name']) ?>
                 </h1>
-                <p class="text-[#241e1a]/70 text-[15px] mt-1"><?= $product_count ?> product<?= $product_count > 1 ? 's' : '' ?> available</p>
-            </div>
-            <div class="text-sm <?= $textColor ?> font-medium bg-white/70 px-4 py-2 rounded-full shadow-sm border border-[#4FB6DE]/10">
-                <i class="fa-solid fa-tag mr-2"></i> <?= $product_count ?> items
+                <p class="text-white/80 text-[16px] mt-2"><?= $product_count ?> product<?= $product_count > 1 ? 's' : '' ?> available</p>
             </div>
         </div>
     </div>
@@ -97,11 +101,15 @@ $textColor = $tint === 'r' ? 'text-[#8F1D22]' : 'text-[#2E93BD]';
                     
                     <!-- Product Image -->
                     <div class="relative h-56 overflow-hidden bg-[#f5f0eb]">
-                        <img src="<?= $product['image'] ?>" alt="<?= htmlspecialchars($product['name']) ?>" 
+                        <img src="<?= BASE_URL . $product['image'] ?>" alt="<?= htmlspecialchars($product['name']) ?>" 
                              class="w-full h-full object-cover transition-transform duration-600 group-hover:scale-105">
-                        <div class="absolute top-3 right-3 bg-[#C1272D] text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
-                            <?= $product['price'] ?>
-                        </div>
+                        
+                        <!-- ✅ Price Badge - Only show if exists -->
+                        <?php if (!empty($product['price'])): ?>
+                            <div class="absolute top-3 right-3 bg-[#C1272D] text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+                                <?= $product['price'] ?>
+                            </div>
+                        <?php endif; ?>
                     </div>
 
                     <!-- Product Info -->
@@ -110,10 +118,14 @@ $textColor = $tint === 'r' ? 'text-[#8F1D22]' : 'text-[#2E93BD]';
                             <?= htmlspecialchars($product['name']) ?>
                         </h3>
                         <p class="text-[#241e1a]/60 text-[13px] mt-1 line-clamp-2">
-                            <?= htmlspecialchars($product['description']) ?>
+                            <?= htmlspecialchars(substr($product['description'], 0, 100)) ?>...
                         </p>
                         <div class="flex items-center justify-between mt-4">
-                            <span class="font-bold text-[#241e1a] text-sm"><?= $product['price'] ?></span>
+                            <?php if (!empty($product['price'])): ?>
+                                <span class="font-bold text-[#C1272D] text-sm"><?= $product['price'] ?></span>
+                            <?php else: ?>
+                                <span class="text-[#241e1a]/40 text-sm">Price on Request</span>
+                            <?php endif; ?>
                             <span class="text-[#2E93BD] text-sm font-medium group-hover:translate-x-1 transition-transform inline-block">
                                 View <i class="fa-solid fa-chevron-right text-[10px] ml-1"></i>
                             </span>
